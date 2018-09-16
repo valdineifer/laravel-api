@@ -61,4 +61,18 @@ class JobsController extends Controller
 
         return response()->json($job);
     }
+
+    public function destroy($id)
+    {
+        /// Pode-se utilizar também (novamente) o findOrFail com o try/catch, mas vai pra cada situação e pessoa
+        $job = Job::find($id);
+
+        if(!$job) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
+        $job->delete();
+    }
 }
